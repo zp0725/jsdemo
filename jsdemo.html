@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsdemo</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    var arr=[1,4,24,5,4,1,4,43,34,2,4,5,6,3,2,1,7];
+    console.log(arr);
+
+    var arr2=check(arr);
+    console.log(arr2);
+
+
+    function check(arr) {
+        var newArr=[] ;        //定义一个新数组
+        for (let i=0;i<=arr.length;i++){  //遍历原数组
+            if (newArr.indexOf((arr[i]))==-1){  //判断新数组中是否包含原数组中的元素，否则返回-1
+                newArr.push(arr[i]);        //向新数组中添加不重复元素
+            }
+
+        }
+        return newArr;
+
+    }
+</script>
+</html>
