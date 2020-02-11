@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #di{
+            width: 300px;
+            height: 140px;
+            border:1px solid black;
+            position: absolute;
+        }
+        #di .tit{
+            height: 40px;
+            border-bottom: black 1px solid;
+            line-height: 40px;
+            padding-left: 5px;
+            background:linear-gradient(90deg,white,black);
+            cursor: move;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="di">
+        <div class="tit">标题</div>
+        <div class="content">这是内容</div>
+    </div>
+
+</body>
+<script src="../jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+
+        init();
+        $(window).resize(init);
+
+
+       function init() {
+           var bleft=($(window).width()-$("#di").width())/2;
+           var btop=($(window).height()-$("#di").height())/2;
+           $("#di").css({
+               "top":btop+"px",
+               "left":bleft+"px"
+           })
+       }
+       var flag=false;
+       $("#di .tit").mousedown(function (e) {
+            //鼠标按下时，当前点击处x，y坐标
+           var before_left=e.pageX||e.clientX;
+           var before_top=e.pageY||e.clientY;
+           var left_offset=$("#di").offset().left;//获取div距离左和上的距离
+           var top_offset=$("#di").offset().top;//获取div距离左和上的距离
+           flag=true;
+           console.log(flag)
+               $(window).mousemove(function (ev) {
+                   if(flag){
+                       var after_left=ev.pageX||ev.clientX;
+                       var after_top=ev.pageY||ev.clientY;
+                       //后-前 +offset
+                       $("#di").css({
+                           "top":(after_top-before_top+top_offset)+"px",
+                           "left":(after_left-before_left+left_offset)+"px"
+                        })
+                   }
+               }).mouseup(function () {
+                   flag=false;
+                   console.log(flag)
+               })
+
+
+       })
+
+    })
+</script>
+</html>

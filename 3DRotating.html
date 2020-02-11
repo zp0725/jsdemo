@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3DRotating</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #di{
+            width: 66px;
+            height: 82px;
+            border: solid 1px black;
+            perspective: 800px;
+            position: absolute;
+        }
+        #di .imgs{
+            width: 66px;
+            height: 82px;
+            border: solid 1px black;
+            transform-style: preserve-3d;
+            position: absolute;
+        }
+        #di .imgs img{
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="di">
+        <div class="imgs">
+            <img src="../img/1.jpg" width="66" height="82">
+            <img src="../img/2.jpg" width="66" height="82">
+            <img src="../img/3.jpg" width="66" height="82">
+            <img src="../img/4.jpg" width="66" height="82">
+            <img src="../img/1.jpg" width="66" height="82">
+            <img src="../img/2.jpg" width="66" height="82">
+            <img src="../img/3.jpg" width="66" height="82">
+            <img src="../img/4.jpg" width="66" height="82">
+            <img src="../img/4.jpg" width="66" height="82">
+        </div>
+    </div>
+</body>
+<script src="../jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        init();
+        $(window).resize(init);
+        function init() {
+            var left=($(window).width()-$("#di").width())/2;
+            var top=($(window).height()-$("#di").height())/2;
+            $("#di").css({
+                "top":top+"px",
+                "left":left+"px"
+            })
+            $(".imgs img").each(function (index,element) {
+                var deg=360/$(".imgs img").length;
+                $(element).css({
+                    transform: "rotateY("+index*deg+"deg) translateX(160px) scale(2)"
+                })
+            })
+        }
+
+        var wrapx=0;
+        var wrapy=0;
+        $(window).mousedown(function (e) {
+            var befor_left=e.pageX||e.clientY;
+            var befor_top=e.pageY||e.clientY;
+            var flag=true;
+            $(window).mousemove(function (ev) {
+                if(flag){
+                    var after_left=ev.pageX||ev.clientX;
+                    var after_top=ev.pageY||ev.clientY;
+
+                    var aleft=after_left-befor_left;
+                    var atop=after_top-befor_top;
+
+                    $("#di .imgs").css({
+                       transform:"rotateX("+atop+"deg) rotateY("+aleft+"deg)"
+                    })
+                    wrapx+=atop;
+                    wrapy+=aleft;
+                }
+            }).mouseup(function () {
+                flag=false
+            })
+        })
+    })
+</script>
+</html>

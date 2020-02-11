@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circle</title>
+    <style>
+        *{
+            pading:0;
+            margin: 0;
+        }
+        #di{
+            width: 500px;
+            height: 500px;
+            border: solid 1px black;
+            border-radius: 50%;
+            /*margin: auto;*/
+            position: relative;
+            top: 50px;
+        }
+        #point{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: blue ;
+            position: absolute;
+
+
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="di">
+        <div id="point"></div>
+
+
+    </div>
+</body>
+<script src="../jquery-3.4.1.min.js"></script>
+<script>
+    $(function(){
+        var x=245;
+        var y=245;
+        var r=250;
+        var deg=0;
+        setInterval(function () {
+            var left=Math.sin(deg/180*Math.PI)*r+x;
+            var top=Math.cos(deg/180*Math.PI)*r+y;
+            $("#point").css({
+                "left":left+"px",
+                "top":top+"px"
+            });
+            deg++;
+            if(deg==360){
+                deg=0;
+            }
+            // console.log(deg);
+        },10)
+    })
+</script>
+</html>
